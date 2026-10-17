@@ -101,3 +101,9 @@ C  →  C#  →  ASP.NET Core  →  HTML  →  CSS  →  JS
 如果这份笔记对你有一点点帮助，**请点亮 Star ⭐**，这是我持续更新的最大动力。
 
 [![Star History Chart](https://api.star-history.com/svg?repos=pero23366/Programming-language-study-notes&type=Date)](https://star-history.com/#pero23366/Programming-language-study-notes&Date)
+
+---
+
+## 许可
+
+本项目采用 [MIT License](LICENSE)，可自由参考、引用、二次整理，注明出处即可。
