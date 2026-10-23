@@ -28,14 +28,14 @@ C  →  C#  →  ASP.NET Core  →  HTML  →  CSS  →  JS  →  TS  →  Vue
 | :--: | :-- | :--: | :--: |
 | 01 | **C** 语言基础 | 已完成 | 15 篇 + 13 份 PDF |
 | 02 | **C#** 入门 / 基础 / 核心 / 进阶 | 已完成 | 103 篇 |
-| 03 | **ASP.NET Core**（配置、DI、EF Core、LINQ、异步、日志……） | 🚧 正在学习 | 62 篇 |
+| 03 | **ASP.NET Core**（配置、DI、EF Core、LINQ、异步、日志……） | 🚧 正在学习 | 70 篇 |
 | 04 | **HTML** | 已完成 | 19 篇 |
 | 05 | **CSS**（布局、动效、响应式、SVG……） | 已完成 | 84 篇 |
 | 06 | **JavaScript**（基础 + DOM + 进阶 ES6） | 已完成 | 30 篇 |
 | 07 | **TypeScript**（类型系统 + 泛型 + 声明文件） | ✅ 主线完成 | 14 篇 |
 | 08 | **Vue**（Vue2 心智 → Vue3 组合式 + 实战） | 🚧 正在学习 | 1 篇 |
 
-合计 **328 篇** Markdown 笔记。
+合计 **336 篇** Markdown 笔记。
 
 > TypeScript 笔记按四个阶段组织：基础篇（01-25 集）→ 类相关篇（26-48 集）→ 泛型相关篇（49-68 集）→ 进阶篇（69-80 集）。
 > 课程 81-92 集是 React 实战，与 TS 主线无关，单独放在 `TS/TS进阶篇-React预习/`，等学框架时再读。
@@ -96,6 +96,8 @@ C  →  C#  →  ASP.NET Core  →  HTML  →  CSS  →  JS  →  TS  →  Vue
 ### ASP.NET Core
 
 - [.NET 教程，.NET Core 视频教程，杨中科主讲](https://www.bilibili.com/video/BV1pK41137He?vd_source=7ded051cec3c99d6e968b122e2017be3)
+
+> 该课程共 196 集，分 Part1~Part6 六大章节。Part1、Part2 已全部整理完，Part3 起按 `ASP.NET Core--后端学习方案.md` 里的 23 批清单推进（方案内含逐节页码与优先级，可当学习进度表用）。
 
 ### HTML / CSS
 
