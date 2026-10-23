@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>02 · 手写 20 行响应式</title>
+<style>
+  body { font-family: "Segoe UI", "Microsoft YaHei", sans-serif; margin: 0; padding: 24px; background: #f7f8fa; color: #1f2328; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { color: #6b7280; font-size: 13px; margin: 0 0 18px; }
+  .card { max-width: 720px; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 18px 20px; }
+  .view { font-size: 15px; margin: 0 0 6px; }
+  .view b { color: #15803d; font-size: 20px; }
+  button { font: inherit; font-size: 13px; padding: 5px 12px; margin-right: 6px; border: 1px solid #d0d7de; background: #fff; border-radius: 6px; cursor: pointer; }
+  button:hover { background: #f3f4f6; }
+  pre { margin: 16px 0 0; padding: 12px; background: #0d1117; color: #c9d1d9; border-radius: 8px;
+        font-family: Consolas, "Courier New", monospace; font-size: 12px; line-height: 1.65;
+        height: 260px; overflow: auto; }
+  .k { color: #79c0ff; }
+  .g { color: #7ee787; }
+  .s { color: #ffa657; }
+  .tag { display: inline-block; font-size: 11px; color: #6b7280; background: #eef1f4; padding: 2px 7px; border-radius: 10px; margin-left: 8px; vertical-align: 2px; }
+</style>
+</head>
+<body>
+<h1>实验 02 · 不用 Vue，自己实现"改数据界面自己变"</h1>
+<p class="sub">全部代码 30 行，没有任何框架。跑完你就知道 Vue2 的响应式到底是什么。</p>
+
+<div class="card">
+  <p class="view">名字：<b id="name-view">—</b><span class="tag">这是 DOM，不是数据</span></p>
+  <p class="view">年龄：<b id="age-view">—</b></p>
+  <button id="btn-name">改名字</button>
+  <button id="btn-age">长一岁</button>
+  <button id="btn-clear">清空日志</button>
+  <pre id="log"></pre>
+</div>
+
+<script>
+const logEl = document.getElementById('log');
+function log(html) {
+  logEl.innerHTML += html + '\n';
+  logEl.scrollTop = logEl.scrollHeight;
+}
+const span = (cls, s) => '<span class="' + cls + '">' + s + '</span>';
+
+// ═══════════════════════════════════════════════════════
+// ① 数据：就是一个普普通通的对象
+// ═══════════════════════════════════════════════════════
+const state = { name: '小黑', age: 18 };
+
+// ═══════════════════════════════════════════════════════
+// ② 视图更新：手写的 render（原生 JS 那边你也写过）
+// ═══════════════════════════════════════════════════════
+function render() {
+  document.getElementById('name-view').textContent = state.name;
+  document.getElementById('age-view').textContent  = state.age;
+  log(span('g', '  [render] 视图已同步 → ' + state.name + ' / ' + state.age));
+}
+
+// ═══════════════════════════════════════════════════════
+// ③ 关键这 15 行：把每个属性换成 getter/setter
+//    Vue2 内部做的，就是这件事（它还会递归进对象、处理数组）
+// ═══════════════════════════════════════════════════════
+function observe(obj) {
+  Object.keys(obj).forEach(function (key) {
+    let val = obj[key];                    // ← 用闭包藏住"真值"
+
+    Object.defineProperty(obj, key, {
+      get: function () {
+        log(span('k', '  [get] ' + key) + ' ← 读真值 ' + span('s', JSON.stringify(val)));
+        return val;
+      },
+      set: function (next) {
+        log(span('s', '  [set] ' + key + ': ') + JSON.stringify(val) + ' → ' + JSON.stringify(next));
+        val = next;
+        render();                          // ← 唯一的区别：写完自动刷界面
+      },
+      enumerable: true,
+      configurable: true
+    });
+  });
+}
+
+observe(state);
+log(span('k', '观察器装好了。state 的每个属性现在是访问器属性。'));
+render();
+
+// ═══════════════════════════════════════════════════════
+// ④ 从此以后，赋值就等于"改数据 + 刷界面"
+// ═══════════════════════════════════════════════════════
+const NAMES = ['小黑', '小美', '波仔', '阿强'];
+document.getElementById('btn-name').onclick = function () {
+  log('点击：state.name = 新名字');
+  state.name = NAMES[Math.floor(Math.random() * NAMES.length)];   // 只写了这一句
+};
+document.getElementById('btn-age').onclick = function () {
+  log('点击：state.age++');
+  state.age++;                                                     // 也只写了这一句
+};
+document.getElementById('btn-clear').onclick = function () { logEl.innerHTML = ''; };
+
+// ═══════════════════════════════════════════════════════
+// 控制台自证
+// ═══════════════════════════════════════════════════════
+console.log('=== 自证 1：state 的属性长什么样 ===');
+console.log(Object.getOwnPropertyDescriptor(state, 'name'));
+console.log('=== 自证 2：这就是 Vue2 实例的 data 长什么样（对照实验 01 的控制台输出）===');
+</script>
+</body>
+</html>

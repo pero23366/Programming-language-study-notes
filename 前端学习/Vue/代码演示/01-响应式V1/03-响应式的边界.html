@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>03 · 响应式的边界（Vue2 vs Vue3）</title>
+<style>
+  body { font-family: "Segoe UI", "Microsoft YaHei", sans-serif; margin: 0; padding: 24px; background: #f7f8fa; color: #1f2328; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { color: #6b7280; font-size: 13px; margin: 0 0 18px; }
+  .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 1020px; }
+  .pane { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px 18px; }
+  .pane h2 { font-size: 14px; margin: 0 0 4px; }
+  .pane.v2 h2 { color: #b45309; }
+  .pane.v3 h2 { color: #15803d; }
+  .how { font-size: 11px; color: #9ca3af; margin: 0 0 12px; font-family: Consolas, monospace; }
+  .row { display: flex; justify-content: space-between; align-items: baseline; padding: 7px 0; border-bottom: 1px dashed #f0f1f3; font-size: 13px; }
+  .row span:first-child { color: #6b7280; }
+  .row b { font-family: Consolas, monospace; font-size: 13px; color: #111827; }
+  .btns { margin: 14px 0 0; }
+  button { font: inherit; font-size: 12px; padding: 5px 9px; margin: 0 5px 6px 0; border: 1px solid #d0d7de; background: #fff; border-radius: 6px; cursor: pointer; }
+  button:hover { background: #f3f4f6; }
+  button.old { border-color: #f0c9a8; color: #b45309; }
+  button.new { border-color: #a8d5b5; color: #15803d; }
+  .verdict { margin-top: 10px; font-size: 12px; min-height: 20px; }
+  .verdict.bad { color: #dc2626; }
+  .verdict.good { color: #15803d; }
+  .tip { max-width: 1020px; margin-top: 18px; background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 14px 18px; font-size: 13px; line-height: 1.8; color: #374151; }
+  code { background: #eef1f4; padding: 1px 4px; border-radius: 3px; font-size: 12px; font-family: Consolas, monospace; }
+</style>
+</head>
+<body>
+<h1>实验 03 · 响应式的边界</h1>
+<p class="sub">同一批操作，左边 Vue2、右边 Vue3。哪个按钮按下去了界面没动，哪个就是"拦不到"。</p>
+
+<div class="wrap">
+  <section class="pane v2">
+    <h2>Vue 2 · Object.defineProperty</h2>
+    <p class="how">defineProperty 只能拦"对象上已经存在的 key"</p>
+    <div id="app2">
+      <div class="row"><span>arr[0]</span><b>{{ arr[0] }}</b></div>
+      <div class="row"><span>user.name</span><b>{{ user.name }}</b></div>
+      <div class="row"><span>user.age</span><b>{{ user.age === undefined ? '（不存在）' : user.age }}</b></div>
+      <div class="row"><span>user.email</span><b>{{ user.email === undefined ? '（不存在）' : user.email }}</b></div>
+    </div>
+    <div class="btns">
+      <button class="old" id="a1">arr[0] = 'X'</button>
+      <button class="new" id="a2">$set(arr, 0, 'X')</button><br>
+      <button class="old" id="b1">user.age = 18</button>
+      <button class="new" id="b2">$set(user, 'email', ...)</button><br>
+      <button id="r2">重置</button>
+    </div>
+    <div class="verdict" id="v2"></div>
+  </section>
+
+  <section class="pane v3">
+    <h2>Vue 3 · Proxy</h2>
+    <p class="how">Proxy 拦"对对象的任何操作"</p>
+    <div id="app3">
+      <div class="row"><span>arr[0]</span><b>{{ s.arr[0] }}</b></div>
+      <div class="row"><span>user.name</span><b>{{ s.user.name }}</b></div>
+      <div class="row"><span>user.age</span><b>{{ s.user.age === undefined ? '（不存在）' : s.user.age }}</b></div>
+      <div class="row"><span>user.email</span><b>{{ s.user.email === undefined ? '（不存在）' : s.user.email }}</b></div>
+    </div>
+    <div class="btns">
+      <button class="old" id="c1">arr[0] = 'X'</button><br>
+      <button class="old" id="d1">user.age = 18</button>
+      <button class="old" id="d2">user.email = ...</button><br>
+      <button id="r3">重置</button>
+    </div>
+    <div class="verdict" id="v3"></div>
+  </section>
+</div>
+
+<div class="tip">
+  <b>怎么读这个实验</b><br>
+  左边按 <code>arr[0] = 'X'</code>：控制台里 <code>vm.arr[0]</code> 确实变成 X 了，但上面那行<b>没变</b> —— 数据改了，界面不知道。<br>
+  左边按 <code>$set</code>：变了。因为 <code>$set</code> 走的是"手动补通知"的路径。<br>
+  右边两个按钮都变。因为 Proxy 能拦到"设置下标"和"新增 key"这两件事本身。<br>
+  <b>这就是 Vue3 重写响应式的原因，不是性能噱头。</b><br><br>
+  <b>⚠️ 一个 $set 都救不了的坑</b>（自己在控制台试）：<br>
+  先执行 <code>vm2.user.age = 18</code>（界面不动，但 <code>age</code> 这个 key 已经真的挂到对象上了），
+  再执行 <code>Vue.set(vm2.user, 'age', 18)</code> —— <b>依然不动</b>。<br>
+  因为 <code>$set</code> 源码里第一件事是 <code>if (key in target)</code>：key 已经存在，它就当作"这个属性早就被观察过了"，
+  直接 <code>target[key] = val</code> 完事，<b>不发通知</b>。<br>
+  → <code>$set</code> 只对"从来没存在过的 key"有效，<b>先手赋过值就废了</b>。这个顺序依赖没有任何警告。
+</div>
+
+<script src="../lib/vue2.js"></script>
+<script>window.Vue2 = window.Vue;</script>
+<script src="../lib/vue3.js"></script>
+<script>window.Vue3 = window.Vue;</script>
+<script>
+const $2 = document.getElementById('v2');
+const $3 = document.getElementById('v3');
+function say(el, text, ok) {
+  el.textContent = text;
+  el.className = 'verdict ' + (ok ? 'good' : 'bad');
+}
+
+// ═══════════ Vue 2 ═══════════
+const vm2 = new Vue2({
+  el: '#app2',
+  data: {
+    arr: ['a', 'b', 'c'],
+    user: { name: '小黑' }
+  }
+});
+
+document.getElementById('a1').onclick = function () {
+  vm2.arr[0] = 'X';
+  say($2, 'vm2.arr[0] 现在是 "' + vm2.arr[0] + '"，界面上还是 "' +
+      document.querySelector('#app2 .row b').textContent + '" → 没响应', false);
+};
+document.getElementById('a2').onclick = function () {
+  Vue2.set(vm2.arr, 0, 'X');
+  say($2, '$set 之后界面变成 "' + document.querySelector('#app2 .row b').textContent + '" → 响应了', true);
+};
+document.getElementById('b1').onclick = function () {
+  vm2.user.age = 18;
+  say($2, 'vm2.user.age = ' + vm2.user.age + '，界面第 3 行还是"（不存在）" → 没响应', false);
+};
+document.getElementById('b2').onclick = function () {
+  Vue2.set(vm2.user, 'email', 'xiaohei@test.com');
+  say($2, '$set(user,"email",...) 之后界面第 4 行出现了邮箱 → 响应了', true);
+};
+document.getElementById('r2').onclick = function () {
+  vm2.arr = ['a', 'b', 'c'];
+  vm2.user = { name: '小黑' };
+  $2.textContent = '';
+};
+
+// ═══════════ Vue 3 ═══════════
+const s3 = Vue3.reactive({
+  arr: ['a', 'b', 'c'],
+  user: { name: '小黑' }
+});
+
+Vue3.createApp({
+  setup() { return { s: s3 }; }
+}).mount('#app3');
+
+document.getElementById('c1').onclick = function () {
+  s3.arr[0] = 'X';
+  say($3, 's3.arr[0] 现在是 "' + s3.arr[0] + '"，界面也变成 "' +
+      document.querySelector('#app3 .row b').textContent + '" → 响应了', true);
+};
+document.getElementById('d1').onclick = function () {
+  s3.user.age = 18;
+  say($3, 's3.user.age = ' + s3.user.age + '，界面第 3 行变成 18 → 响应了（不用 $set）', true);
+};
+document.getElementById('d2').onclick = function () {
+  s3.user.email = 'xiaohei@test.com';
+  say($3, 's3.user.email 直接赋值，界面第 4 行出现邮箱 → 响应了（不用 $set）', true);
+};
+document.getElementById('r3').onclick = function () {
+  s3.arr = ['a', 'b', 'c'];
+  s3.user = { name: '小黑' };
+  $3.textContent = '';
+};
+
+console.log('=== 自证 ===');
+console.log('Vue2 的 data 上有 __ob__（观察者）:', !!vm2.$data.__ob__);
+console.log('Vue2 数组原型被改写了吗？ vm2.arr.push === Array.prototype.push ?',
+  vm2.arr.push === Array.prototype.push, '（false 说明 Vue2 劫持了 7 个数组方法）');
+console.log('Vue3 的 reactive 对象本身是 Proxy:', s3);
+</script>
+</body>
+</html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>01 · 命令式 vs 声明式</title>
+<style>
+  body { font-family: "Segoe UI", "Microsoft YaHei", sans-serif; margin: 0; padding: 24px; background: #f7f8fa; color: #1f2328; }
+  h1 { font-size: 18px; margin: 0 0 4px; }
+  .sub { color: #6b7280; font-size: 13px; margin: 0 0 20px; }
+  .wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; max-width: 980px; }
+  .pane { background: #fff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 16px 18px; }
+  .pane h2 { font-size: 14px; margin: 0 0 12px; padding-bottom: 8px; border-bottom: 1px solid #f0f1f3; }
+  .raw h2 { color: #b45309; }
+  .vue h2 { color: #15803d; }
+  .cnt { font-size: 13px; color: #4b5563; margin: 0 0 10px; }
+  .cnt b { font-size: 20px; color: #111827; }
+  ul { margin: 0 0 12px; padding-left: 20px; min-height: 72px; font-size: 14px; }
+  li { padding: 2px 0; }
+  button { font: inherit; font-size: 13px; padding: 5px 12px; margin-right: 6px; border: 1px solid #d0d7de; background: #fff; border-radius: 6px; cursor: pointer; }
+  button:hover { background: #f3f4f6; }
+  .note { margin-top: 12px; font-size: 12px; line-height: 1.7; color: #6b7280; background: #fafbfc; border-left: 3px solid #d0d7de; padding: 8px 10px; }
+  code { background: #eef1f4; padding: 1px 4px; border-radius: 3px; font-size: 12px; }
+</style>
+</head>
+<body>
+<h1>实验 01 · 命令式 vs 声明式</h1>
+<p class="sub">同一个功能：一个能加待办的列表 + 计数。左边纯原生 JS，右边 Vue。点两边的按钮对比。</p>
+
+<div class="wrap">
+  <section class="pane raw">
+    <h2>原生 JS —— 命令式（你写"怎么改"）</h2>
+    <p class="cnt">计数：<b id="rawCount">0</b></p>
+    <ul id="rawList"></ul>
+    <button id="rawAdd">加一条</button>
+    <button id="rawReset">清空</button>
+    <div class="note">
+      数据是 <code>count</code> / <code>todos</code>，界面是 DOM。<br>
+      <b>两份东西</b>，靠手写的 <code>render()</code> 连起来。忘调一次就不同步。
+    </div>
+  </section>
+
+  <section class="pane vue">
+    <h2>Vue —— 声明式（你写"要什么"）</h2>
+    <div id="app">
+      <p class="cnt">计数：<b>{{ count }}</b></p>
+      <ul>
+        <li v-for="t in todos" :key="t">{{ t }}</li>
+      </ul>
+      <button @click="add">加一条</button>
+      <button @click="reset">清空</button>
+      <div class="note">
+        只有<b>一份东西</b>：<code>data</code>。界面是它的投影。<br>
+        没有 <code>render()</code> 可忘 —— 改数据就够了。
+      </div>
+    </div>
+  </section>
+</div>
+
+<script src="../lib/vue2.js"></script>
+<script>
+// ═══════════════════════════════════════════════════════════
+// 左：原生 JS
+// ═══════════════════════════════════════════════════════════
+let count = 0;
+let todos = [];
+const $count = document.getElementById('rawCount');
+const $list  = document.getElementById('rawList');
+
+// ← 这个函数是"命令式"的全部代价：你得记得每一步都调它
+function render() {
+  $count.textContent = count;
+  $list.innerHTML = '';
+  todos.forEach(function (t) {
+    const li = document.createElement('li');
+    li.textContent = t;
+    $list.appendChild(li);
+  });
+}
+
+document.getElementById('rawAdd').onclick = function () {
+  count++;
+  todos.push('任务 ' + count);
+  render();                       // ← 漏掉这一行，数据变了界面不动，而且不报错
+};
+document.getElementById('rawReset').onclick = function () {
+  count = 0;
+  todos = [];
+  render();
+};
+render();
+
+// ═══════════════════════════════════════════════════════════
+// 右：Vue
+// ═══════════════════════════════════════════════════════════
+new Vue({
+  el: '#app',
+  data: {
+    count: 0,
+    todos: []
+  },
+  methods: {
+    add: function () {
+      this.count++;
+      this.todos.push('任务 ' + this.count);
+      // ← 没有 render()。因为不需要。
+    },
+    reset: function () {
+      this.count = 0;
+      this.todos = [];
+    }
+  }
+});
+
+// ═══════════════════════════════════════════════════════════
+// 控制台自证：Vue 实例到底把 data 变成了什么
+// ═══════════════════════════════════════════════════════════
+const vm = document.querySelector('#app').__vue__;
+console.log('=== 控制台自证 ===');
+console.log('vm.$data 的每个 key 是不是访问器属性？');
+Object.keys(vm.$data).forEach(function (k) {
+  const d = Object.getOwnPropertyDescriptor(vm.$data, k);
+  console.log('  ' + k, '→ get:', typeof d.get, '/ set:', typeof d.set);
+});
+console.log('vm.$data.__ob__ 存在吗？', !!vm.$data.__ob__, '（Vue2 的观察者对象）');
+console.log('改数据但不等界面 → 试试 vm.count = 99，看计数变不变');
+</script>
+</body>
+</html>
