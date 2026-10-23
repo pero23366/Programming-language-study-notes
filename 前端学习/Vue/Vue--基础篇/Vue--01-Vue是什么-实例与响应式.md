@@ -1,7 +1,7 @@
 # Vue--01 · Vue 是什么 · 实例与响应式
 
 > **对应课程**：002-007 集（第 1 天开头 6 集，约 59 分钟）
-> **读法**：全文贯穿 **Vue ↔ C#/WPF** 对照 —— 读者有 WPF/MVVM 底子，只讲差异与坑。
+> **读法**：全文贯穿 **Vue ↔ C# / EF Core / 原生 JS** 对照 —— 读者是资深 C# 后端，前端已学完 JS/TS，只讲差异与坑。
 > **本轮定位**：这 6 集只解决一个问题 —— **响应式是什么，以及它会怎么骗你**。这是全课程地基，宁可慢。
 > **前置补丁**：无。本轮用单文件 HTML + 本地 `vue2.js`，不需要 npm、不需要构建工具。
 
@@ -40,10 +40,6 @@
 
 这就是 Vue 存在的理由。**不是让你少写代码，是让你少写"同步逻辑"。**
 
-> ⚠️ 这里有个必须切开的东西：**WPF 里你不是也在写绑定吗？**
-> 是的 —— 所以你已经享受过声明式的好处了。Vue 和 WPF 在这里是**同一个思路的两种实现**，
-> 差别在"响应式是谁提供的"（见 §2.2）。
-
 ---
 
 ## 2. Vue 是什么（集 003）
@@ -66,40 +62,66 @@
 | 英文 | reactivity | reactive programming |
 | 解决什么 | **数据 → 视图**的单向同步 | **事件流**的组合与变换 |
 | 核心机制 | 拦截属性读写（`defineProperty` / `Proxy`） | `IObservable<T>` + 操作符链 |
-| 你能类比的 | WPF 绑定 | LINQ to Events |
+| 你能类比的 | EF Core 的变更追踪 | LINQ to Events |
 
 > 你在 .NET 里听到"响应式"想到 Rx，是**完全不同的东西**。Vue 这门课从头到尾说的都是前一个。
 > 中文翻译把它们撞在一起了，这不是你的问题。
 
-### 2.3 Vue 和 WPF/MVVM 的关系（这是你的加速器）
+### 2.3 Vue 的位置：它到底解决什么问题
 
-**同一个问题：数据变了，界面怎么跟着变？**
+**先给结论：Vue 不是抽象层，是同步层。** 它不解决"多态"那种"调用方与实现解耦"，它解决的是"**数据变了，界面怎么跟着变**"。
 
-| | WPF | Vue |
-|---|---|---|
-| 数据源 | ViewModel 属性 | `data` |
-| 通知机制 | **你手写** `PropertyChanged` | 框架自动装 getter/setter |
-| 绑定声明 | XAML 里 `{Binding Name}` | 模板里 `{{ name }}` |
-| 谁负责改 DOM | WPF 渲染引擎 | Vue 的 patch 算法 |
-| 忘记通知 | 界面不动 | 不存在（除非踩到 §5 的边界） |
+**Vue 之于 DOM = EF Core 之于数据库。** 这个类比是准的：
+
+| | 手写 ADO.NET | EF Core | | 手写 DOM | Vue |
+|---|---|---|---|---|---|
+| 谁写同步代码 | 你 | 框架 | | 你 | 框架 |
+| 怎么表达意图 | 拼 SQL 字符串 | LINQ / 改实体属性 | | `createElement` + `appendChild` | 模板 |
+| 变更追踪 | 无 | ChangeTracker 快照对比 | | 无 | getter/setter（V2）/ `Proxy`（V3） |
+| 忘记同步的后果 | 数据库和内存对象不一致 | 不存在 | | 界面和数据不一致 | 不存在（除 §5 的边界） |
 
 ```csharp
-// WPF：想让它响应，必须三件套
-private string _name;
-public string Name {
-    get => _name;
-    set { _name = value; OnPropertyChanged(); }   // ← 忘写这行，界面就不动
-}
+// EF Core：改对象属性，UPDATE 由框架生成
+var user = await db.Users.FirstAsync(u => u.Id == 1);
+user.Name = "小美";              // 没有 SqlCommand，没有 ExecuteNonQuery
+await db.SaveChangesAsync();     // ← 唯一的显式提交点
 ```
 
 ```js
-// Vue：只写数据，通知是框架装的
-data: { name: '小黑' }
-// 之后 this.name = '小美' 就会自动刷界面
+// Vue：改数据属性，DOM 由框架更新
+this.name = '小美';              // 没有 createElement，没有 appendChild
+                                 // ← 连 SaveChanges 都没有：赋值那一刻就同步了
 ```
 
-> ⭐ **这就是本轮最重要的一句**：你在 WPF 里手写的那 3 行样板，Vue 用 `Object.defineProperty` 替你批量装上了。
-> 下一节就把这 15 行代码摊开给你看。
+> ⭐ **本轮最重要的一句**：`Object.defineProperty` 把每个属性换成 getter/setter，
+> 等价于 EF Core 在实体属性上装的那个"变更追踪器"。下一节把这 15 行摊开给你看。
+>
+> 📌 附注：WPF 里也有同类机制（数据绑定 + `INotifyPropertyChanged`）。**没深用过 WPF 完全不影响本课**，
+> 后面所有内容都只依赖 C#、EF Core 和原生 JS。
+
+### 2.4 🔵 别把它想成"多态"
+
+你这个类比值得正面回答，因为它是**错的**，而且错得很有代表性。
+
+多态解决的是"**调用方不关心具体实现**"：
+
+```csharp
+interface IPayment { void Pay(decimal amount); }
+// 调用方只写 payment.Pay(100)，不知道也不关心是微信还是支付宝
+```
+
+Vue 里**没有"接口"这一层**。组件确实可以替换（同一个位置放不同组件），但那是次要副作用，不是核心。
+
+| | 多态 | Vue |
+|---|---|---|
+| 解决的问题 | 调用方与实现**解耦** | 状态与视图**同步** |
+| 靠什么实现 | 虚方法表 / 接口分派 | 拦截属性读写 |
+| 不用它会怎样 | 到处 `if (type == "微信")` | 到处手写 DOM 操作 |
+| **还能不能写出来** | 能，用 switch 硬写 | **能**，用原生 JS 写 |
+
+**判据在这里**：如果 Vue 是"多态"，那离开它你就写不出页面。事实是你用原生 JS 写得出来 —— **只是累**。
+
+> **累 = 同步成本，不是抽象缺失。** 框架卖的是"省掉手写同步"，不是"提供一种新的抽象能力"。
 
 ---
 
@@ -123,11 +145,11 @@ data: { name: '小黑' }
 
 三件事，一一对应：
 
-| 写法 | 是什么 | WPF 里对应 |
+| 写法 | 是什么 | C# 里对应 |
 |---|---|---|
-| `el: '#app'` | **挂载点**，Vue 接管这个 DOM 的内部 | `MainWindow` / `UserControl` 的根 |
-| `data: {}` | **状态**，唯一的真相来源 | ViewModel 的属性集合 |
-| `new Vue({...})` | **实例**，把上面两者连起来的对象 | ViewModel 实例 + 绑定引擎 |
+| `el: '#app'` | **挂载点**，Vue 接管这个 DOM 的内部 | 类似 `DbContext` 的作用域：一段被接管的区域 |
+| `data: {}` | **状态**，唯一的真相来源 | 被追踪的实体对象 |
+| `new Vue({...})` | **实例**，把上面两者连起来的对象 | `DbContext` 实例：持有状态 + 提供操作入口 |
 
 ### 3.2 🔵 撞名：「实例」不是普通对象
 
@@ -246,15 +268,19 @@ function observe(obj) {
 - `val` 为什么放在闭包里？因为一旦 `defineProperty` 接管了 `obj[key]`，你没法再从 `obj[key]` 里取到原始值 —— 会无限递归调用 `get`。
 - 这就是 C# 里手写 `private string _name;` 那个字段的角色。**`val` 就是 backing field。**
 
-> ⭐ 对照你能立刻认出来的东西：
+> ⭐ 对照你天天在写的 C# 自动属性 —— 编译器展开后长这样：
 > ```csharp
+> public string Name { get; set; }
+>
+> // 上面一行编译器实际生成的是：
 > private string _name;                    // ← 就是那个 val
 > public string Name {
 >     get { return _name; }
->     set { _name = value; OnPropertyChanged(); }   // ← 就是那个 render()
+>     set { _name = value; }               // ← Vue 只在这里多插了一句 render()
 > }
 > ```
-> **一模一样。** 区别只是 Vue 帮你把这段样板代码生成出来了。
+> **一模一样。** `defineProperty` 干的事就是"在 setter 里多插一句通知"，
+> 区别只是属性是运行时生成的（动态语言没有编译期）。
 
 ### 5.2 但它有边界 —— 三个拦不到的地方
 
@@ -373,17 +399,17 @@ function set(target, key, val) {
 
 ## 1. 速查表：Vue2 最小 API（本轮范围）
 
-| 写法 | 作用 | 备注 |
-|---|---|---|
-| `new Vue({ el, data, methods })` | 创建实例 | `methods` 下一轮讲 |
-| `el: '#app'` | 挂载点，CSS 选择器 | 接管该元素**内部** |
-| `data: { }` | 状态，响应式的源头 | 根实例用对象；组件里必须是函数（V6） |
-| `{{ 表达式 }}` | 插值，输出到文本节点 | **不能放语句** |
-| `Vue.set(obj, key, val)` | 给对象补一个响应式新 key | 等价 `vm.$set` |
-| `Vue.set(arr, index, val)` | 改数组某个下标并通知 | 等价 `arr.splice(i,1,val)` |
-| `vm.$data` | 原始 data 对象 | 读它能看到 `__ob__` |
-| `vm.$el` | 实例根 DOM | |
-| `vm.$set` | 实例上的 `Vue.set` | |
+| 写法                               | 作用             | 备注                       |
+| -------------------------------- | -------------- | ------------------------ |
+| `new Vue({ el, data, methods })` | 创建实例           | `methods` 下一轮讲           |
+| `el: '#app'`                     | 挂载点，CSS 选择器    | 接管该元素**内部**              |
+| `data: { }`                      | 状态，响应式的源头      | 根实例用对象；组件里必须是函数（V6）      |
+| `{{ 表达式 }}`                      | 插值，输出到文本节点     | **不能放语句**                |
+| `Vue.set(obj, key, val)`         | 给对象补一个响应式新 key | 等价 `vm.$set`             |
+| `Vue.set(arr, index, val)`       | 改数组某个下标并通知     | 等价 `arr.splice(i,1,val)` |
+| `vm.$data`                       | 原始 data 对象     | 读它能看到 `__ob__`           |
+| `vm.$el`                         | 实例根 DOM        |                          |
+| `vm.$set`                        | 实例上的 `Vue.set` |                          |
 
 **控制台自证口令**（复制粘贴就能跑）：
 
@@ -395,17 +421,19 @@ vm.arr.push === Array.prototype.push;               // false = 被 Vue 改写过
 vm.msg = '新值';                                     // 看界面是否立刻变
 ```
 
-## 2. Vue ↔ C#/WPF 对照表（本轮部分）
+## 2. Vue ↔ C# 对照表（本轮部分）
 
-| Vue | C# / WPF | 迁移度 | 关键差异 |
+| Vue | C# / .NET | 迁移度 | 关键差异 |
 |---|---|---|---|
-| `data` | ViewModel 属性 | ⚪ | Vue 自动装 getter/setter |
-| `new Vue({el, data})` | ViewModel 实例 + 绑定 | 🟡 | 实例还兼了渲染职责 |
-| `{{ expr }}` | `{Binding}` | 🟡 | 模板里能写表达式，XAML 只能写路径 + 转换器 |
-| 响应式 | `INotifyPropertyChanged` | ⚪ | 手写 vs 自动 |
-| `Object.defineProperty` 拦截 | 属性的 backing field | ⚪ | 一个在运行时改属性描述符，一个是编译期生成的字段 |
-| `Vue.set` | 无对应 | 🆕 | WPF 里属性都是编译期确定的，没有"运行时加属性"这回事 |
-| `$set` 的顺序坑 | 无对应 | 🆕 | 动态类型语言 + 运行时拦截的产物 |
+| `data` | 被 EF 追踪的实体 | ⚪ | Vue 自动装 getter/setter，EF 靠快照 |
+| 响应式 | **EF Core `ChangeTracker`** | ⭐ 最准 | 都是"改对象 → 框架同步到存储" |
+| `render()`（自动） | `SaveChangesAsync()` | 🟡 | Vue 自动提交，EF 要显式调 |
+| `new Vue({el, data})` | `DbContext` 实例 | 🟡 | 都持有状态 + 提供操作入口 |
+| `{{ expr }}` | LINQ 查询表达式 | 🟡 | 都声明"要什么"，不写"怎么取" |
+| `data` 里声明字段 | 实体类定义属性 | ⚪ | 差异：实体可带行为，`data` 只放数据 |
+| `Object.defineProperty` 拦截 | 自动属性的 backing field | ⚪ | 一个运行时生成，一个编译期生成 |
+| `Vue.set` | 反射 `PropertyInfo.SetValue` | ❌ | 形似神不似：反射改值，`$set` 装拦截器 |
+| `$set` 的顺序坑 | 无对应 | 🆕 | 动态类型 + 运行时拦截独有 |
 
 ## 3. 实测输出（可复现）
 
@@ -555,17 +583,22 @@ render();
 
 ## 5. C# 类比可用度
 
+> ⚠️ **2026-10-23 修正**：原表以 WPF 为主锚点，前提错了 —— 用户 WPF 只是"用到哪查到哪"，
+> 不是 MVVM 熟手。主锚点已改为 **EF Core / 类 / LINQ**，WPF 只作附注。
+
 | 类比 | 档位 | 说明 |
 |---|---|---|
-| 响应式 ↔ `INotifyPropertyChanged` | ⭐⭐⭐ | 概念完全一致，机制不同（自动 vs 手写） |
-| `val` 闭包 ↔ backing field | ⭐⭐⭐ | 结构一模一样 |
-| `render()` ↔ `OnPropertyChanged()` | ⭐⭐⭐ | 都是"通知界面重读" |
-| `el` ↔ 控件根 | ⭐⭐ | 概念通，Vue 是选择器定位 |
-| `{{ }}` ↔ `{Binding}` | ⭐⭐ | 表达能力强得多，XAML 要转换器 |
-| `new Vue()` ↔ ViewModel 实例 | ⭐⭐ | 但 Vue 实例兼了渲染职责，比 VM 重 |
+| 响应式 ↔ **EF Core ChangeTracker** | ⭐⭐⭐ | 都是"改对象，框架负责同步到存储" |
+| `val` 闭包 ↔ 自动属性的 backing field | ⭐⭐⭐ | 结构一模一样 |
+| `render()` ↔ `SaveChangesAsync()` | ⭐⭐ | 但 Vue 是**自动提交**，EF 要你显式调 |
+| `{{ }}` ↔ **LINQ 查询表达式** | ⭐⭐ | 都声明"要什么"，不写"怎么取" |
+| `new Vue({el,data})` ↔ `DbContext` | ⭐⭐ | 都持有当前状态 + 提供操作入口 |
+| `data` ↔ 实体类 | ⭐⭐ | 差异：Vue 的 data 纯数据无行为，行为在 `methods` |
+| 组件（V5）↔ 类 | ⭐⭐⭐ | 封装 + 复用，V5 展开 |
 | "响应式" ↔ Rx 响应式 | ❌ | **完全不同**，见 §2.2 |
-| `Vue.set` ↔ 动态属性 | ❌ | WPF 属性编译期确定，没有对应 |
+| `Vue.set` ↔ 反射设属性 | ❌ | 形似神不似：反射改值，`$set` 是**装拦截器** |
 | `$set` 顺序坑 ↔ ？ | ❌ | 动态类型 + 运行时拦截独有 |
+| 响应式 ↔ WPF `INotifyPropertyChanged` | 🟡 附注 | 机制同类，但**不必强求理解**，不影响本课 |
 
 ## 6. 解锁边界
 
@@ -596,16 +629,18 @@ render();
 
 ## 7. 下一轮预告（V2 · 008-022 集）
 
-**指令全家，15 集 3.2 小时 —— 但你大概能压到 2 小时。**
+**指令全家，15 集 3.2 小时。**
 
 | 内容 | 对你的预判 |
 |---|---|
-| `v-show` / `v-if` / `v-else-if` | ⚪ WPF 的 `Collapsed`/`Hidden`，白送 |
-| `v-on` 三种写法 + 传参 | 🟡 类比事件订阅 |
-| `v-bind` | 🟡 类比 Binding，但能绑任意属性 |
-| `v-for` + `:key` | 🔴 **`:key` 是唯一要停的地方**（用 index 会列表错乱） |
-| `v-model` | ⚪ TwoWay 绑定，白送 |
-| `v-html` | 🟡 类比 `WebBrowser` / `TextBlock` 的富文本 —— **有 XSS 风险** |
+| `v-show` / `v-if` / `v-else-if` | 🟡 概念极简（藏起来 vs 删掉），几乎没有前置门槛 |
+| `v-on` 三种写法 + 传参 | 🟡 类比 C# 事件订阅，但传参与修饰符有坑 |
+| `v-bind` | 🟡 类比"s绑定到值"，但能绑任意属性、能绑对象 |
+| `v-for` + `:key` | 🔴 **唯一必须停的地方**（`:key` 用 index 会列表错乱） |
+| `v-model` | 🟡 双向绑定的概念不新，但**修饰符 + 组件上的用法**有坑 |
+| `v-html` | 🟡 等同于 `innerHTML` —— **有 XSS 风险**，配一句工程防护 |
+
+> ⚠️ 注意：这张表**不再标"白送"**。之前把 WPF 当白送区的判断是错的 —— 你的 WPF 只是"用到哪查到哪"。
 
 **并轮判据**（V2 开始时我会出这两道题）：
 
