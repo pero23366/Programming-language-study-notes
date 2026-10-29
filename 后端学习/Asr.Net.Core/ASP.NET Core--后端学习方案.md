@@ -167,12 +167,12 @@
 - [x] 4-35 配置系统综合案例 · P131 · ★★
 - [x] 4-36 多层项目中 EFCore 的使用 · P132 · ★★★
 - [x] 4-37 案例：复杂项目中批量注册上下文 · P133 · ★★
-- [ ] 4-38 ExceptionFilter 异常筛选器 · P134 · ★★★
-- [ ] 4-39 ASP.NET Core 中的 ActionFilter · P135 · ★★★
-- [ ] 4-40 案例：自动启用事务的 ActionFilter · P136 · ★★
-- [ ] 4-41 案例：对请求限速的 ActionFilter · P137 · ★★
-> 笔记拆两篇：P131–P133 → `ASP.NET Core--多层项目结构与EFCore集成（P131–P133）.md`（2026-10-29）；
-> P134–P137（Filter 全解）下一篇产出。
+- [x] 4-38 ExceptionFilter 异常筛选器 · P134 · ★★★
+- [x] 4-39 ASP.NET Core 中的 ActionFilter · P135 · ★★★
+- [x] 4-40 案例：自动启用事务的 ActionFilter · P136 · ★★
+- [x] 4-41 案例：对请求限速的 ActionFilter · P137 · ★★
+> 笔记拆两篇：`ASP.NET Core--多层项目结构与EFCore集成（P131–P133）.md` ＋
+> `ASP.NET Core--Filter全解（P134–P137）.md`（2026-10-29）。**批次 15 全部完成。**
 
 ### 批次 16 · 中间件（P138–143）
 - [ ] 4-42 中间件的概念 · P138 · ★★★
