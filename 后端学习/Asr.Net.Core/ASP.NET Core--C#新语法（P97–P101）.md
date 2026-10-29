@@ -273,7 +273,7 @@ public interface IDisposable
 
 **GC 会兜底，但不知道什么时候。** 在 GC 动手之前，资源一直是占用状态。这就是为什么必须 `using`。
 
-## 老写法：`using` 语句（still 支持）
+## 老写法：`using` 语句（现在仍然支持）
 
 ```csharp
 using (var conn = new SqlConnection(connStr))
@@ -512,7 +512,7 @@ Console.WriteLine(s1.Name);      // 运行时：NullReferenceException
 ### 警告一：可能返回 null 却声明成不可空（CS8603）
 
 ```csharp
-static string GetName()
+string GetName()          // 写成方法（类里的方法 / 顶级语句里的局部函数都行）
 {
     return null;      // ⚠️ CS8603: Possible null reference return.
 }
@@ -595,7 +595,7 @@ Console.WriteLine(s!.Name);    // ← 加个 !，警告消失
 写完这些，把程序跑起来：
 
 ```csharp
-static string GetName() => null!;      // 编译通过，零警告
+string GetName() => null!;             // 编译通过，零警告
 
 string name = GetName();               // 编译通过，零警告
 Console.WriteLine(name.Length);        // 运行时：NullReferenceException
@@ -1541,16 +1541,22 @@ Console.WriteLine(content);
 | 缓冲刷盘 | `writer.Dispose()` 内部调 `Flush()` | 读出来是空文件 |
 | 释放文件锁 | `fs.Dispose()` 内部调 `CloseHandle` | 读的时候抛 `IOException` |
 
-**验证顺序是逆序的：** 加个自定义类打印 Dispose 顺序。
+**验证顺序是逆序的：** 新建 `Trace.cs`，加个自定义类打印 Dispose 顺序。
 
 ```csharp
-class Trace : IDisposable
+namespace SugarDemo;
+
+public class Trace : IDisposable
 {
     private readonly string _name;
     public Trace(string name) { _name = name; Console.WriteLine($"  + 创建 {_name}"); }
     public void Dispose() => Console.WriteLine($"  - 释放 {_name}");
 }
+```
 
+**回到 `Program.cs`：**
+
+```csharp
 Console.WriteLine("进入块：");
 {
     using var a = new Trace("A");
@@ -1708,7 +1714,7 @@ string name = GetName();      // 编译器认为 GetName 返回非空 string
 Console.WriteLine($"拿到了：{name}");
 Console.WriteLine($"长度：{name.Length}");     // ← 这里崩
 
-static string GetName()
+string GetName()              // 顶级语句里声明的方法：不能加 static 修饰符
 {
     return null!;             // ← ! 把警告压掉了
 }
