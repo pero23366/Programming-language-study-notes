@@ -10,9 +10,10 @@
 !/后端学习/
 !/前端学习/
 
-# 后端学习：只发布 Asr.Net.Core（ASP.NET Core 笔记）
+# 后端学习：只发布 Asr.Net.Core（ASP.NET Core 笔记）与 MySQL（黑马 MySQL 解课笔记）
 后端学习/*
 !后端学习/Asr.Net.Core/
+!后端学习/MySQL/
 
 # 前端学习：只发布 HTML / CSS / JS / TS / Vue
 前端学习/*

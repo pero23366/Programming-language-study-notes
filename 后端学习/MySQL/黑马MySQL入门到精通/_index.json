@@ -1,0 +1,47 @@
+{
+  "course": "黑马程序员 MySQL 数据库入门到精通",
+  "source": "https://www.bilibili.com/video/BV1Kr4y1i7ru",
+  "owner": "黑马程序员",
+  "total_parts": 195,
+  "duration": "30 小时（基础 8.8h / 进阶 13.6h / 运维 7.6h）",
+  "stack": "C# 最熟 + ASP.NET Core（EF Core / SQL Server / T-SQL）、HTML/CSS/JS/TS/Vue",
+  "generated": "2026-11-02",
+  "space_id": "mfXETt802WjJjdOfAsGOBK",
+  "page_node_id": "l9UDWi4aU1Sa2QBF9gU70c",
+  "page_url": "https://www.workbuddy.cn/space/d/l9UDWi4aU1Sa2QBF9gU70c",
+  "publish_url": "https://workbuddy.link/p/l9UDWi4aU1Sa2QBF9gU70c",
+  "chapters": [
+    {
+      "no": "01",
+      "title": "认识MySQL",
+      "parts": "P1–P4",
+      "folder_url": "https://www.workbuddy.cn/space/d/bgI8znOzSb0U3UcS3rkOOT",
+      "notes": [
+        {"title": "数据库相关概念", "file": "01-01_数据库相关概念.md", "tier": "A", "parts": "P2", "url": "https://www.workbuddy.cn/space/d/lSuIxNneMNaqm3xUWCg0p4"},
+        {"title": "MySQL 安装与启动", "file": "01-02_MySQL安装与启动.md", "tier": "A", "parts": "P3", "url": "https://www.workbuddy.cn/space/d/Mmkup4Be1rSRgkZ92NI0z3"},
+        {"title": "数据模型", "file": "01-03_数据模型.md", "tier": "A", "parts": "P4", "url": "https://www.workbuddy.cn/space/d/1kCyxe57HdL3xfFw9ZDfRg"}
+      ]
+    },
+    {"no": "02", "title": "SQL通用语法与DDL", "parts": "P5–P11", "folder_url": "", "notes": []},
+    {"no": "03", "title": "DML增删改", "parts": "P12–P14", "folder_url": "", "notes": []},
+    {"no": "04", "title": "DQL单表查询", "parts": "P15–P23", "folder_url": "", "notes": []},
+    {"no": "05", "title": "DCL用户与权限", "parts": "P24–P26", "folder_url": "", "notes": []},
+    {"no": "06", "title": "函数", "parts": "P27–P31", "folder_url": "", "notes": []},
+    {"no": "07", "title": "约束", "parts": "P32–P36", "folder_url": "", "notes": []},
+    {"no": "08", "title": "多表查询", "parts": "P37–P50", "folder_url": "", "notes": []},
+    {"no": "09", "title": "事务", "parts": "P51–P57", "folder_url": "", "notes": []},
+    {"no": "10", "title": "存储引擎", "parts": "P58–P65", "folder_url": "", "notes": []},
+    {"no": "11", "title": "索引", "parts": "P66–P88", "folder_url": "", "notes": []},
+    {"no": "12", "title": "SQL优化", "parts": "P89–P96", "folder_url": "", "notes": []},
+    {"no": "13", "title": "视图", "parts": "P97–P101", "folder_url": "", "notes": []},
+    {"no": "14", "title": "存储过程与存储函数", "parts": "P102–P115", "folder_url": "", "notes": []},
+    {"no": "15", "title": "触发器", "parts": "P116–P120", "folder_url": "", "notes": []},
+    {"no": "16", "title": "锁", "parts": "P121–P132", "folder_url": "", "notes": []},
+    {"no": "17", "title": "InnoDB引擎原理", "parts": "P133–P147", "folder_url": "", "notes": []},
+    {"no": "18", "title": "MySQL管理", "parts": "P148–P152", "folder_url": "", "notes": []},
+    {"no": "19", "title": "日志", "parts": "P153–P157", "folder_url": "", "notes": []},
+    {"no": "20", "title": "主从复制", "parts": "P158–P162", "folder_url": "", "notes": []},
+    {"no": "21", "title": "分库分表与MyCat", "parts": "P163–P187", "folder_url": "", "notes": []},
+    {"no": "22", "title": "读写分离", "parts": "P188–P195", "folder_url": "", "notes": []}
+  ]
+}

@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html data-theme="light" lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黑马程序员 MySQL 数据库入门到精通 · 解课学习地图</title>
+<style>
+:root{
+  --bg:#f6f7fb; --panel:#fff; --ink:#1b1f2a; --ink2:#545b6d; --ink3:#8b93a6;
+  --line:#e6e8f0; --accent:#512bd4; --accent-soft:#efecfb;
+  --a:#16a34a; --a-soft:#e8f7ee; --b:#d97706; --b-soft:#fdf3e3; --c:#e11d48; --c-soft:#fdeaef;
+  --shadow:0 1px 2px rgba(20,25,50,.05), 0 10px 30px -18px rgba(20,25,50,.3); --r:14px;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);line-height:1.65;
+  font-family:"PingFang SC","Microsoft YaHei","Segoe UI",system-ui,sans-serif}
+a{color:inherit;text-decoration:none}
+input,button{font:inherit}
+.wrap{max-width:1060px;margin:0 auto;padding:0 22px 80px}
+
+.hero{padding:52px 0 6px}
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;
+  color:var(--accent);background:var(--accent-soft);padding:5px 13px;border-radius:999px}
+h1{font-size:clamp(27px,4.4vw,40px);letter-spacing:-.7px;margin:16px 0 8px;line-height:1.18}
+.lede{color:var(--ink2);font-size:15px;max-width:700px;margin:0}
+
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(126px,1fr));gap:12px;margin:24px 0 8px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);
+  padding:14px 16px;box-shadow:var(--shadow)}
+.stat .n{font-size:26px;font-weight:800;letter-spacing:-1px;color:var(--accent);font-variant-numeric:tabular-nums}
+.stat .l{font-size:12.5px;color:var(--ink3);margin-top:2px}
+.stat.ca .n{color:var(--a)} .stat.cb .n{color:var(--b)} .stat.cc .n{color:var(--c)}
+
+h2{font-size:19px;letter-spacing:-.3px;margin:42px 0 14px;display:flex;align-items:center;gap:10px}
+h2::after{content:"";flex:1;height:1px;background:var(--line)}
+h2 .hint{font-size:12.5px;font-weight:400;color:var(--ink3);letter-spacing:0}
+
+.routebar{display:flex;height:10px;border-radius:999px;overflow:hidden;background:var(--line);margin:18px 0 10px}
+.routebar i{display:block;height:100%}
+.routebar i.a{background:var(--a)} .routebar i.b{background:var(--b)} .routebar i.c{background:var(--c)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;font-size:12.5px;color:var(--ink2)}
+.legend b{font-weight:700}
+.legend .k{display:inline-block;width:9px;height:9px;border-radius:3px;margin-right:6px;vertical-align:middle}
+
+.chs{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.ch{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:17px;
+  box-shadow:var(--shadow);transition:.16s;display:flex;flex-direction:column;gap:7px}
+.ch:hover{transform:translateY(-2px);border-color:var(--accent)}
+.ch .no{font-size:11.5px;font-weight:800;color:var(--accent);letter-spacing:.08em}
+.ch .t{font-size:16px;font-weight:700;letter-spacing:-.2px}
+.ch .d{font-size:13px;color:var(--ink3)}
+.ch .tiers{margin-top:auto;padding-top:6px;display:flex;gap:6px;flex-wrap:wrap}
+.ch.pending{opacity:.55;border-style:dashed}
+.ch.pending:hover{transform:none;border-color:var(--line)}
+
+.b{font-size:11.5px;font-weight:700;padding:2px 8px;border-radius:999px;font-variant-numeric:tabular-nums}
+.b.a{color:var(--a);background:var(--a-soft)}
+.b.b{color:var(--b);background:var(--b-soft)}
+.b.c{color:var(--c);background:var(--c-soft)}
+.b.z{color:var(--ink3);background:#f1f2f6}
+
+.bar{position:sticky;top:0;z-index:5;background:rgba(246,247,251,.92);backdrop-filter:blur(10px);
+  padding:12px 0;border-bottom:1px solid var(--line);margin:34px 0 4px;
+  display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.bar input{flex:1;min-width:180px;padding:10px 14px;border:1px solid var(--line);border-radius:10px;
+  background:var(--panel);font-size:14px;outline:none}
+.bar input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.seg{display:flex;gap:4px;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:3px}
+.seg button{border:0;background:transparent;color:var(--ink2);font-size:13px;font-weight:600;
+  padding:6px 12px;border-radius:8px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--accent);color:#fff}
+
+.grp{margin-top:22px}
+.grp-h{font-size:13px;font-weight:700;color:var(--ink3);letter-spacing:.04em;
+  padding-bottom:8px;border-bottom:1px dashed var(--line);margin-bottom:6px}
+.grp-h a:hover{color:var(--accent)}
+.row{display:flex;align-items:center;gap:11px;padding:8px 10px;border-radius:9px;font-size:14.5px}
+.row:hover{background:var(--panel);box-shadow:var(--shadow)}
+.row:hover .nm{color:var(--accent)}
+.row .nm{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.row .pt{font-size:12px;color:var(--ink3);white-space:nowrap;font-variant-numeric:tabular-nums}
+.row .go{font-size:12px;color:var(--ink3);opacity:0}
+.row:hover .go{opacity:1}
+
+.empty{display:none;padding:46px 0;text-align:center;color:var(--ink3);font-size:14px}
+body.filtering .empty{display:block}
+.hide{display:none !important}
+
+footer{margin-top:54px;padding-top:18px;border-top:1px solid var(--line);color:var(--ink3);font-size:12.5px}
+footer a{color:var(--ink2);border-bottom:1px dashed var(--line)}
+@media (max-width:600px){
+  .wrap{padding:0 16px 60px}
+  .chs{grid-template-columns:1fr}
+  .row .pt{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="hero">
+    <span class="kicker">解课 · 视频课拆解笔记</span>
+    <h1>黑马程序员 MySQL 数据库入门到精通</h1>
+    <p class="lede">共 195 集，切成 3 篇笔记，分 22 章（30 小时（基础 8.8h / 进阶 13.6h / 运维 7.6h））。按你的底子划了三档：A 档 3 篇速览、B 档 0 篇看差异、C 档 0 篇精读。<br>我的基底：C# 最熟 + ASP.NET Core（EF Core / SQL Server / T-SQL）、HTML/CSS/JS/TS/Vue</p>
+  </header>
+
+  <div class="stats">
+    <div class="stat "><div class="n">195</div><div class="l">视频集数</div></div>
+    <div class="stat "><div class="n">3</div><div class="l">笔记篇数</div></div>
+    <div class="stat "><div class="n">22</div><div class="l">章节</div></div>
+    <div class="stat ca"><div class="n">3</div><div class="l">A 速览</div></div>
+    <div class="stat cb"><div class="n">0</div><div class="l">B 看差异</div></div>
+    <div class="stat cc"><div class="n">0</div><div class="l">C 精读</div></div>
+  </div>
+
+  <div class="routebar" role="img" aria-label="三档占比"><i class="a" style="width:100.00%"></i></div>
+  <div class="legend">
+    <span><i class="k" style="background:var(--a)"></i><b>A 几乎重叠</b> · 速览，只记差别</span>
+    <span><i class="k" style="background:var(--b)"></i><b>B 部分重叠</b> · 重点看差异</span>
+    <span><i class="k" style="background:var(--c)"></i><b>C 全新</b> · 精读 + 动手</span>
+  </div>
+
+  <h2>章节<span class="hint">点卡片进资料库文件夹</span></h2>
+  <div class="chs">
+    <a class="ch" href="https://www.workbuddy.cn/space/d/bgI8znOzSb0U3UcS3rkOOT" target="_blank" rel="noopener"><span class="no">第 01 章</span><span class="t">认识MySQL</span><span class="d">P1–P4 · 3 篇</span><span class="tiers"><span class="b a">A 3</span></span></a>
+    <div class="ch pending"><span class="no">第 02 章</span><span class="t">SQL通用语法与DDL</span><span class="d">P5–P11</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 03 章</span><span class="t">DML增删改</span><span class="d">P12–P14</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 04 章</span><span class="t">DQL单表查询</span><span class="d">P15–P23</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 05 章</span><span class="t">DCL用户与权限</span><span class="d">P24–P26</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 06 章</span><span class="t">函数</span><span class="d">P27–P31</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 07 章</span><span class="t">约束</span><span class="d">P32–P36</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 08 章</span><span class="t">多表查询</span><span class="d">P37–P50</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 09 章</span><span class="t">事务</span><span class="d">P51–P57</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 10 章</span><span class="t">存储引擎</span><span class="d">P58–P65</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 11 章</span><span class="t">索引</span><span class="d">P66–P88</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 12 章</span><span class="t">SQL优化</span><span class="d">P89–P96</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 13 章</span><span class="t">视图</span><span class="d">P97–P101</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 14 章</span><span class="t">存储过程与存储函数</span><span class="d">P102–P115</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 15 章</span><span class="t">触发器</span><span class="d">P116–P120</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 16 章</span><span class="t">锁</span><span class="d">P121–P132</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 17 章</span><span class="t">InnoDB引擎原理</span><span class="d">P133–P147</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 18 章</span><span class="t">MySQL管理</span><span class="d">P148–P152</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 19 章</span><span class="t">日志</span><span class="d">P153–P157</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 20 章</span><span class="t">主从复制</span><span class="d">P158–P162</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 21 章</span><span class="t">分库分表与MyCat</span><span class="d">P163–P187</span><span class="tiers"><span class="b z">待产出</span></span></div>
+    <div class="ch pending"><span class="no">第 22 章</span><span class="t">读写分离</span><span class="d">P188–P195</span><span class="tiers"><span class="b z">待产出</span></span></div>
+  </div>
+
+  <h2>全部知识点<span class="hint">按章分组，可用搜索框本地过滤</span></h2>
+  <div class="bar">
+    <input id="q" type="search" placeholder="搜索知识点 / 集数…（本地过滤，不发请求）" autocomplete="off">
+    <div class="seg" id="seg">
+      <button data-t="all" aria-pressed="true">全部</button>
+      <button data-t="C" aria-pressed="false">只看 C</button>
+      <button data-t="B" aria-pressed="false">只看 B</button>
+      <button data-t="A" aria-pressed="false">只看 A</button>
+    </div>
+  </div>
+    <div class="grp">
+      <div class="grp-h"><a href="https://www.workbuddy.cn/space/d/bgI8znOzSb0U3UcS3rkOOT" target="_blank" rel="noopener">第 01 章 · 认识MySQL</a></div>
+      <a class="row" data-tier="A" data-t="数据库相关概念 P2 认识MySQL A" href="https://www.workbuddy.cn/space/d/lSuIxNneMNaqm3xUWCg0p4" target="_blank" rel="noopener"><span class="b a">A</span><span class="nm">数据库相关概念</span><span class="pt">P2</span><span class="go">→</span></a>
+      <a class="row" data-tier="A" data-t="MySQL 安装与启动 P3 认识MySQL A" href="https://www.workbuddy.cn/space/d/Mmkup4Be1rSRgkZ92NI0z3" target="_blank" rel="noopener"><span class="b a">A</span><span class="nm">MySQL 安装与启动</span><span class="pt">P3</span><span class="go">→</span></a>
+      <a class="row" data-tier="A" data-t="数据模型 P4 认识MySQL A" href="https://www.workbuddy.cn/space/d/1kCyxe57HdL3xfFw9ZDfRg" target="_blank" rel="noopener"><span class="b a">A</span><span class="nm">数据模型</span><span class="pt">P4</span><span class="go">→</span></a>
+    </div>
+  <div class="empty">没有匹配的知识点。</div>
+
+  <footer>
+    生成于 2026-11-02 · 来源：<a href="https://www.bilibili.com/video/BV1Kr4y1i7ru" target="_blank" rel="noopener">黑马程序员</a><br>
+    笔记按知识点切分，非逐字稿；未提供字幕的内容为基于知识点名称的讲解。
+  </footer>
+</div>
+
+<script>
+(function(){
+  var rows = [].slice.call(document.querySelectorAll('.row'));
+  var grps = [].slice.call(document.querySelectorAll('.grp'));
+  var input = document.getElementById('q');
+  var seg = document.getElementById('seg');
+  var tier = 'all';
+
+  function apply(){
+    var q = (input.value || '').trim().toLowerCase();
+    var shown = 0;
+    rows.forEach(function(r){
+      var okT = (tier === 'all') || (r.getAttribute('data-tier') === tier);
+      var okQ = !q || (r.getAttribute('data-t') || '').toLowerCase().indexOf(q) > -1;
+      var ok = okT && okQ;
+      r.classList.toggle('hide', !ok);
+      if (ok) shown++;
+    });
+    grps.forEach(function(g){
+      var any = g.querySelector('.row:not(.hide)');
+      g.classList.toggle('hide', !any);
+    });
+    document.body.classList.toggle('filtering', shown === 0);
+  }
+
+  input.addEventListener('input', apply);
+  seg.addEventListener('click', function(e){
+    var b = e.target.closest('button');
+    if (!b) return;
+    tier = b.getAttribute('data-t');
+    [].slice.call(seg.querySelectorAll('button')).forEach(function(x){
+      x.setAttribute('aria-pressed', String(x === b));
+    });
+    apply();
+  });
+})();
+</script>
+</body>
+</html>
