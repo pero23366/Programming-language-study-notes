@@ -34,8 +34,9 @@ C  →  C#  →  ASP.NET Core  →  HTML  →  CSS  →  JS  →  TS  →  Vue
 | 06 | **JavaScript**（基础 + DOM + 进阶 ES6） | 已完成 | 31 篇 |
 | 07 | **TypeScript**（类型系统 + 泛型 + 声明文件） | ✅ 主线完成 | 14 篇 |
 | 08 | **Vue**（Vue2 心智 → Vue3 组合式 + 实战） | 🚧 正在学习 | 33 篇 |
+| 09 | **MySQL**（基础 SQL → 索引与优化 → InnoDB 原理 → 运维） | 🚧 正在学习 | 3 篇 |
 
-合计 **381 篇** Markdown 笔记。
+合计 **384 篇** Markdown 笔记。
 
 > TypeScript 笔记按四个阶段组织：基础篇（01-25 集）→ 类相关篇（26-48 集）→ 泛型相关篇（49-68 集）→ 进阶篇（69-80 集）。
 > 课程 81-92 集是 React 实战，与 TS 主线无关，单独放在 `TS/TS进阶篇-React预习/`，等学框架时再读。
@@ -55,7 +56,12 @@ C  →  C#  →  ASP.NET Core  →  HTML  →  CSS  →  JS  →  TS  →  Vue
 │   └── 说明/                    # 学习说明
 ├── CSharp/                 # 02 C# 四部曲笔记（面向对象、集合、委托事件、反射、多线程……）
 ├── 后端学习/
-│   └── Asr.Net.Core/       # 03 ASP.NET Core 学习笔记
+│   ├── Asr.Net.Core/       # 03 ASP.NET Core 学习笔记
+│   └── MySQL/              # 09 MySQL 解课笔记（黑马 MySQL 入门到精通）
+│       └── 黑马MySQL入门到精通/
+│           ├── _index.json         # 导航页数据源：章节、档位、资料库链接
+│           ├── index.html          # 学习地图（脚本渲染，勿手改）
+│           └── 01_第1章 认识MySQL/  # 按章分目录，一章一个文件夹
 └── 前端学习/
     ├── HTML/               # 04 HTML 结构与语义化
     ├── CSS/                # 05 CSS 基础、布局、动效
@@ -102,6 +108,13 @@ C  →  C#  →  ASP.NET Core  →  HTML  →  CSS  →  JS  →  TS  →  Vue
 - [.NET 教程，.NET Core 视频教程，杨中科主讲](https://www.bilibili.com/video/BV1pK41137He?vd_source=7ded051cec3c99d6e968b122e2017be3)
 
 > 该课程共 196 集，分 Part1~Part6 六大章节。Part1、Part2 已全部整理完，Part3 起按 `ASP.NET Core--后端学习方案.md` 里的 23 批清单推进（方案内含逐节页码与优先级，可当学习进度表用）。
+
+### MySQL
+
+- [黑马程序员 MySQL 数据库入门到精通，从 mysql 安装到 mysql 高级、mysql 优化全囊括](https://www.bilibili.com/video/BV1Kr4y1i7ru?vd_source=7ded051cec3c99d6e968b122e2017be3)
+
+> 该课程共 195 集、约 30 小时，分基础篇（P1-57）、进阶篇（P58-152）、运维篇（P153-195），按 22 章产出。
+> 笔记以 C# / ASP.NET Core（EF Core、SQL Server、T-SQL）为底子做减法：SQL 单表语法归 A 档速览，MySQL 特有机制（数据类型、函数名、分页、存储引擎）归 B 档只写差异，索引与 InnoDB/MVCC/锁归 C 档精读。
 
 ### HTML / CSS
 
