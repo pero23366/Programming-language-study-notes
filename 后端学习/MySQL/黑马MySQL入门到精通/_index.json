@@ -5,7 +5,7 @@
   "total_parts": 195,
   "duration": "30 小时（基础 8.8h / 进阶 13.6h / 运维 7.6h）",
   "stack": "C# 最熟 + ASP.NET Core（EF Core / SQL Server / T-SQL）、HTML/CSS/JS/TS/Vue",
-  "generated": "2026-11-02",
+  "generated": "2026-11-09",
   "space_id": "mfXETt802WjJjdOfAsGOBK",
   "page_node_id": "l9UDWi4aU1Sa2QBF9gU70c",
   "page_url": "https://www.workbuddy.cn/space/d/l9UDWi4aU1Sa2QBF9gU70c",
@@ -22,14 +22,106 @@
         {"title": "数据模型", "file": "01-03_数据模型.md", "tier": "A", "parts": "P4", "url": "https://www.workbuddy.cn/space/d/1kCyxe57HdL3xfFw9ZDfRg"}
       ]
     },
-    {"no": "02", "title": "SQL通用语法与DDL", "parts": "P5–P11", "folder_url": "", "notes": []},
-    {"no": "03", "title": "DML增删改", "parts": "P12–P14", "folder_url": "", "notes": []},
-    {"no": "04", "title": "DQL单表查询", "parts": "P15–P23", "folder_url": "", "notes": []},
-    {"no": "05", "title": "DCL用户与权限", "parts": "P24–P26", "folder_url": "", "notes": []},
-    {"no": "06", "title": "函数", "parts": "P27–P31", "folder_url": "", "notes": []},
-    {"no": "07", "title": "约束", "parts": "P32–P36", "folder_url": "", "notes": []},
-    {"no": "08", "title": "多表查询", "parts": "P37–P50", "folder_url": "", "notes": []},
-    {"no": "09", "title": "事务", "parts": "P51–P57", "folder_url": "", "notes": []},
+    {
+      "no": "02",
+      "title": "SQL通用语法与DDL",
+      "parts": "P5–P11",
+      "folder_url": "https://www.workbuddy.cn/space/d/WSsmtFPZC6iaJm7MkfAAEG",
+      "notes": [
+        {"title": "SQL通用语法与分类", "file": "02-01_SQL通用语法与分类.md", "tier": "B", "parts": "P5", "url": "https://www.workbuddy.cn/space/d/fa5BQFzaAsvCrqQv2yrJHX"},
+        {"title": "DDL数据库操作", "file": "02-02_DDL数据库操作.md", "tier": "B", "parts": "P6", "url": "https://www.workbuddy.cn/space/d/5817SsBich0Gdxya9ZjdIH"},
+        {"title": "表操作：创建与查询", "file": "02-03_表操作创建与查询.md", "tier": "A", "parts": "P7", "url": "https://www.workbuddy.cn/space/d/UbeyLnY05Ofjir2aECZVoJ"},
+        {"title": "数据类型", "file": "02-04_数据类型.md", "tier": "B", "parts": "P8", "url": "https://www.workbuddy.cn/space/d/aUQqntt8DGitj6xjHohRKJ"},
+        {"title": "表操作：修改与删除", "file": "02-05_表操作修改与删除.md", "tier": "A", "parts": "P9", "url": "https://www.workbuddy.cn/space/d/ZdiSOpijg05ZFcbSA9zPQt"},
+        {"title": "图形化工具DataGrip", "file": "02-06_图形化工具DataGrip.md", "tier": "A", "parts": "P11", "url": "https://www.workbuddy.cn/space/d/JpwEYl6eH8rkrvtOK2CnAD"}
+      ]
+    },
+    {
+      "no": "03",
+      "title": "DML增删改",
+      "parts": "P12–P14",
+      "folder_url": "https://www.workbuddy.cn/space/d/gWpLemDYSGS34rV0nTjBkL",
+      "notes": [
+        {"title": "插入数据", "file": "03-01_插入数据.md", "tier": "A", "parts": "P12", "url": "https://www.workbuddy.cn/space/d/jwDaep0OaVhIXfjF7gbFXc"},
+        {"title": "更新与删除", "file": "03-02_更新与删除.md", "tier": "A", "parts": "P13", "url": "https://www.workbuddy.cn/space/d/n4V6wZ1Ma2mSzFdjfKS1mL"}
+      ]
+    },
+    {
+      "no": "04",
+      "title": "DQL单表查询",
+      "parts": "P15–P23",
+      "folder_url": "https://www.workbuddy.cn/space/d/IZRjjylZb2Uh3ghXs4a3ET",
+      "notes": [
+        {"title": "基础查询", "file": "04-01_基础查询.md", "tier": "A", "parts": "P15", "url": "https://www.workbuddy.cn/space/d/UECHJkXAaVTzYGJahaF14x"},
+        {"title": "条件查询", "file": "04-02_条件查询.md", "tier": "A", "parts": "P16", "url": "https://www.workbuddy.cn/space/d/a7KGLJujglYeE25DXNtStY"},
+        {"title": "聚合函数", "file": "04-03_聚合函数.md", "tier": "A", "parts": "P17", "url": "https://www.workbuddy.cn/space/d/IcyAK7K7vkXHAmYmai2n58"},
+        {"title": "分组查询", "file": "04-04_分组查询.md", "tier": "B", "parts": "P18", "url": "https://www.workbuddy.cn/space/d/A98vLvRisYClXnnn3D6lGx"},
+        {"title": "排序查询", "file": "04-05_排序查询.md", "tier": "A", "parts": "P19", "url": "https://www.workbuddy.cn/space/d/FNYzV0W3Jhj7a5GfU7fJSL"},
+        {"title": "分页查询", "file": "04-06_分页查询.md", "tier": "B", "parts": "P20", "url": "https://www.workbuddy.cn/space/d/EQMVRReDDMkStC6Xv2D1Nq"},
+        {"title": "执行顺序", "file": "04-07_执行顺序.md", "tier": "B", "parts": "P22", "url": "https://www.workbuddy.cn/space/d/rKGAkFELqVprLjCuB2lCfM"}
+      ]
+    },
+    {
+      "no": "05",
+      "title": "DCL用户与权限",
+      "parts": "P24–P26",
+      "folder_url": "https://www.workbuddy.cn/space/d/74cjgH2hzwU8Z1SdcuyISc",
+      "notes": [
+        {"title": "用户管理", "file": "05-01_用户管理.md", "tier": "B", "parts": "P24", "url": "https://www.workbuddy.cn/space/d/oiYDgyInGPJlZ9pYSZXoq3"},
+        {"title": "权限控制", "file": "05-02_权限控制.md", "tier": "B", "parts": "P25", "url": "https://www.workbuddy.cn/space/d/Y8ndyXAjbZSaDrvaWdmijd"}
+      ]
+    },
+    {
+      "no": "06",
+      "title": "函数",
+      "parts": "P27–P31",
+      "folder_url": "https://www.workbuddy.cn/space/d/9uJixFe4CbkqGkyadgqJTT",
+      "notes": [
+        {"title": "字符串函数", "file": "06-01_字符串函数.md", "tier": "B", "parts": "P27", "url": "https://www.workbuddy.cn/space/d/U9nxxasNcE398tcMOMfzDB"},
+        {"title": "数值函数", "file": "06-02_数值函数.md", "tier": "A", "parts": "P28", "url": "https://www.workbuddy.cn/space/d/e1WY82IlUHREeA9GV7aK1U"},
+        {"title": "日期函数", "file": "06-03_日期函数.md", "tier": "B", "parts": "P29", "url": "https://www.workbuddy.cn/space/d/xACrsPGh4HRC6RMnHDZfPC"},
+        {"title": "流程函数", "file": "06-04_流程函数.md", "tier": "B", "parts": "P30", "url": "https://www.workbuddy.cn/space/d/sZepl3X2q6wtf6VcTcw4uO"}
+      ]
+    },
+    {
+      "no": "07",
+      "title": "约束",
+      "parts": "P32–P36",
+      "folder_url": "https://www.workbuddy.cn/space/d/VNJHn0CRlPMrnee3FXuGa9",
+      "notes": [
+        {"title": "约束概述与分类", "file": "07-01_约束概述与分类.md", "tier": "A", "parts": "P32", "url": "https://www.workbuddy.cn/space/d/iYlygrIWl4Wc8XzisSfyIy"},
+        {"title": "约束演示", "file": "07-02_约束演示.md", "tier": "B", "parts": "P33", "url": "https://www.workbuddy.cn/space/d/aOadgXlvqOZ8VzHnELePPR"},
+        {"title": "外键约束", "file": "07-03_外键约束.md", "tier": "B", "parts": "P34", "url": "https://www.workbuddy.cn/space/d/m37hZcRknZg9T1N3sGOs0B"},
+        {"title": "外键的删除与更新行为", "file": "07-04_外键的删除更新行为.md", "tier": "B", "parts": "P35", "url": "https://www.workbuddy.cn/space/d/fhTK9NIkdtETCnTEYtMHkA"}
+      ]
+    },
+    {
+      "no": "08",
+      "title": "多表查询",
+      "parts": "P37–P50",
+      "folder_url": "https://www.workbuddy.cn/space/d/Wq4cuEri6XtbHkXvbUwU74",
+      "notes": [
+        {"title": "多表关系", "file": "08-01_多表关系.md", "tier": "A", "parts": "P37", "url": "https://www.workbuddy.cn/space/d/0LeBF87T9fkUiMJ4VwmhEw"},
+        {"title": "笛卡尔积与多表查询概述", "file": "08-02_笛卡尔积与多表查询概述.md", "tier": "A", "parts": "P38", "url": "https://www.workbuddy.cn/space/d/2LINiTL9S9IQt46UHT9I9V"},
+        {"title": "内连接", "file": "08-03_内连接.md", "tier": "A", "parts": "P39", "url": "https://www.workbuddy.cn/space/d/CmJ11ZdGz0fWvj7e8CITy3"},
+        {"title": "外连接", "file": "08-04_外连接.md", "tier": "B", "parts": "P40", "url": "https://www.workbuddy.cn/space/d/6ZFSH8wHScynPfxsoeGL9G"},
+        {"title": "自连接", "file": "08-05_自连接.md", "tier": "A", "parts": "P41", "url": "https://www.workbuddy.cn/space/d/WnKq9zc4mHuCtzMWL4CIWa"},
+        {"title": "联合查询union", "file": "08-06_联合查询union.md", "tier": "A", "parts": "P42", "url": "https://www.workbuddy.cn/space/d/I1ETEXimSBjsrpiOSapSoV"},
+        {"title": "子查询", "file": "08-07_子查询.md", "tier": "B", "parts": "P43–P47", "url": "https://www.workbuddy.cn/space/d/Rqdj2vFVk0VIvart4Bpzwr"}
+      ]
+    },
+    {
+      "no": "09",
+      "title": "事务",
+      "parts": "P51–P57",
+      "folder_url": "https://www.workbuddy.cn/space/d/tGqgn0rlHD03ZMPAtqWKLZ",
+      "notes": [
+        {"title": "事务简介与操作", "file": "09-01_事务简介与操作.md", "tier": "B", "parts": "P51–P52", "url": "https://www.workbuddy.cn/space/d/o4aGr3MnDVgKKqZIAkqVtu"},
+        {"title": "ACID四大特性", "file": "09-02_ACID四大特性.md", "tier": "A", "parts": "P53", "url": "https://www.workbuddy.cn/space/d/1gtsS24gVu2guUzaFvtxrM"},
+        {"title": "并发事务问题", "file": "09-03_并发事务问题.md", "tier": "B", "parts": "P54", "url": "https://www.workbuddy.cn/space/d/tHHperpk4AYUnHS86s2thW"},
+        {"title": "事务隔离级别", "file": "09-04_事务隔离级别.md", "tier": "B", "parts": "P55", "url": "https://www.workbuddy.cn/space/d/5ngGSelzrVn4ria9qrx33t"}
+      ]
+    },
     {"no": "10", "title": "存储引擎", "parts": "P58–P65", "folder_url": "", "notes": []},
     {"no": "11", "title": "索引", "parts": "P66–P88", "folder_url": "", "notes": []},
     {"no": "12", "title": "SQL优化", "parts": "P89–P96", "folder_url": "", "notes": []},
