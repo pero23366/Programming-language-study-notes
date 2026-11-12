@@ -5,7 +5,7 @@
   "total_parts": 195,
   "duration": "30 小时（基础 8.8h / 进阶 13.6h / 运维 7.6h）",
   "stack": "C# 最熟 + ASP.NET Core（EF Core / SQL Server / T-SQL）、HTML/CSS/JS/TS/Vue",
-  "generated": "2026-11-09",
+  "generated": "2026-11-12",
   "space_id": "mfXETt802WjJjdOfAsGOBK",
   "page_node_id": "l9UDWi4aU1Sa2QBF9gU70c",
   "page_url": "https://www.workbuddy.cn/space/d/l9UDWi4aU1Sa2QBF9gU70c",
@@ -122,15 +122,130 @@
         {"title": "事务隔离级别", "file": "09-04_事务隔离级别.md", "tier": "B", "parts": "P55", "url": "https://www.workbuddy.cn/space/d/5ngGSelzrVn4ria9qrx33t"}
       ]
     },
-    {"no": "10", "title": "存储引擎", "parts": "P58–P65", "folder_url": "", "notes": []},
-    {"no": "11", "title": "索引", "parts": "P66–P88", "folder_url": "", "notes": []},
-    {"no": "12", "title": "SQL优化", "parts": "P89–P96", "folder_url": "", "notes": []},
-    {"no": "13", "title": "视图", "parts": "P97–P101", "folder_url": "", "notes": []},
-    {"no": "14", "title": "存储过程与存储函数", "parts": "P102–P115", "folder_url": "", "notes": []},
-    {"no": "15", "title": "触发器", "parts": "P116–P120", "folder_url": "", "notes": []},
-    {"no": "16", "title": "锁", "parts": "P121–P132", "folder_url": "", "notes": []},
-    {"no": "17", "title": "InnoDB引擎原理", "parts": "P133–P147", "folder_url": "", "notes": []},
-    {"no": "18", "title": "MySQL管理", "parts": "P148–P152", "folder_url": "", "notes": []},
+    {
+      "no": "10",
+      "title": "存储引擎",
+      "parts": "P58–P65",
+      "folder_url": "https://www.workbuddy.cn/space/d/Xk6hsHKTkmZ2j8eLLh2BX8",
+      "notes": [
+        {"title": "MySQL体系结构", "file": "10-01_MySQL体系结构.md", "tier": "C", "parts": "P59", "url": "https://www.workbuddy.cn/space/d/KSKdG1IAn9TjUBPYyV5bSX"},
+        {"title": "存储引擎简介与InnoDB", "file": "10-02_存储引擎简介与InnoDB.md", "tier": "C", "parts": "P60–P61", "url": "https://www.workbuddy.cn/space/d/07M7NXLW6Ff5sKfyaJXIQy"},
+        {"title": "MyISAM与Memory", "file": "10-03_MyISAM与Memory.md", "tier": "C", "parts": "P62", "url": "https://www.workbuddy.cn/space/d/YZxv7XfMJgY6cHP7VXYDGv"},
+        {"title": "存储引擎的选择", "file": "10-04_存储引擎的选择.md", "tier": "B", "parts": "P63", "url": "https://www.workbuddy.cn/space/d/50tJ6RIcIUQ1W08MhkiZhM"},
+        {"title": "Linux版安装", "file": "10-05_Linux版安装.md", "tier": "A", "parts": "P65", "url": "https://www.workbuddy.cn/space/d/OAJ1XqdusTDbdjz4BxQBiw"}
+      ]
+    },
+    {
+      "no": "11",
+      "title": "索引",
+      "parts": "P66–P88",
+      "folder_url": "https://www.workbuddy.cn/space/d/7dYdLADxvrYBgkcA1vJpeU",
+      "notes": [
+        {"title": "索引概述", "file": "11-01_索引概述.md", "tier": "B", "parts": "P66", "url": "https://www.workbuddy.cn/space/d/CjCn1pUOkVVtMO4FXPMat6"},
+        {"title": "B树与B+树结构", "file": "11-02_B树与B+树结构.md", "tier": "C", "parts": "P67–P69", "url": "https://www.workbuddy.cn/space/d/aVzg0pwUIctVnbmbfesgRJ"},
+        {"title": "Hash索引与引擎选型", "file": "11-03_Hash索引与引擎选型.md", "tier": "C", "parts": "P70–P71", "url": "https://www.workbuddy.cn/space/d/RsMHS5FJpSksxEXLHrHg1x"},
+        {"title": "索引分类与聚簇索引", "file": "11-04_索引分类与聚簇索引.md", "tier": "C", "parts": "P72–P73", "url": "https://www.workbuddy.cn/space/d/mYPwbmWgznwG3jrLCrGz5T"},
+        {"title": "索引语法", "file": "11-05_索引语法.md", "tier": "B", "parts": "P74", "url": "https://www.workbuddy.cn/space/d/btusn2k0I9IZoLn6vgJxQX"},
+        {"title": "性能分析三件套", "file": "11-06_性能分析三件套.md", "tier": "C", "parts": "P75–P77", "url": "https://www.workbuddy.cn/space/d/Ct7S3eS56vqc86NxcEpL6A"},
+        {"title": "EXPLAIN执行计划", "file": "11-07_EXPLAIN执行计划.md", "tier": "C", "parts": "P78", "url": "https://www.workbuddy.cn/space/d/l1dWOuySyCcVyQsy9EadMk"},
+        {"title": "最左前缀法则", "file": "11-08_最左前缀法则.md", "tier": "C", "parts": "P79–P80", "url": "https://www.workbuddy.cn/space/d/MV4i1rz8eItY9VO4t1cxQ5"},
+        {"title": "索引失效场景", "file": "11-09_索引失效场景.md", "tier": "C", "parts": "P81–P82", "url": "https://www.workbuddy.cn/space/d/LpdVYYlqh67rgB6vUqCKJt"},
+        {"title": "SQL提示", "file": "11-10_SQL提示.md", "tier": "B", "parts": "P83", "url": "https://www.workbuddy.cn/space/d/wHF3yT1n9CRDpLGP1ki9OF"},
+        {"title": "覆盖索引与回表", "file": "11-11_覆盖索引与回表.md", "tier": "C", "parts": "P84", "url": "https://www.workbuddy.cn/space/d/r2cY3vRgtBaKcWGRb923FS"},
+        {"title": "前缀索引", "file": "11-12_前缀索引.md", "tier": "C", "parts": "P85", "url": "https://www.workbuddy.cn/space/d/mb8hMCkgkdlGeqRglBlAl1"},
+        {"title": "单列与联合索引及设计原则", "file": "11-13_单列与联合索引及设计原则.md", "tier": "C", "parts": "P86–P87", "url": "https://www.workbuddy.cn/space/d/dugthV4g1S4sULMIaVrVd1"}
+      ]
+    },
+    {
+      "no": "12",
+      "title": "SQL优化",
+      "parts": "P89–P96",
+      "folder_url": "https://www.workbuddy.cn/space/d/KGx0Jd4YLXr4lwMyDJQGhp",
+      "notes": [
+        {"title": "插入数据优化", "file": "12-01_插入数据优化.md", "tier": "C", "parts": "P89", "url": "https://www.workbuddy.cn/space/d/URxNMkwbadKSAO1kInSstI"},
+        {"title": "主键优化", "file": "12-02_主键优化.md", "tier": "C", "parts": "P90", "url": "https://www.workbuddy.cn/space/d/hrqalo8uYHqgQJIRgH1yKg"},
+        {"title": "order by优化", "file": "12-03_order_by优化.md", "tier": "C", "parts": "P91", "url": "https://www.workbuddy.cn/space/d/SCXtxOjJUSsBWsnRQeACYI"},
+        {"title": "group by优化", "file": "12-04_group_by优化.md", "tier": "B", "parts": "P92", "url": "https://www.workbuddy.cn/space/d/aaYy3BozKmNBUSkNyF4B90"},
+        {"title": "limit优化与深分页", "file": "12-05_limit优化.md", "tier": "C", "parts": "P93", "url": "https://www.workbuddy.cn/space/d/XSnXfzPIFZ2QpgdTvZGJgp"},
+        {"title": "count优化", "file": "12-06_count优化.md", "tier": "C", "parts": "P94", "url": "https://www.workbuddy.cn/space/d/tmEE6e3EYQbQHMr5iWpslD"},
+        {"title": "update优化", "file": "12-07_update优化.md", "tier": "C", "parts": "P95", "url": "https://www.workbuddy.cn/space/d/cvNA7j4X8NASQUe7fQ0Tmj"}
+      ]
+    },
+    {
+      "no": "13",
+      "title": "视图",
+      "parts": "P97–P101",
+      "folder_url": "https://www.workbuddy.cn/space/d/KMnhy4Z0qBY6ojeN5uaysJ",
+      "notes": [
+        {"title": "视图介绍与基本语法", "file": "13-01_视图介绍与基本语法.md", "tier": "B", "parts": "P97", "url": "https://www.workbuddy.cn/space/d/M5PlJrN6sB3xUgmvyRhMGR"},
+        {"title": "检查选项CASCADED", "file": "13-02_检查选项CASCADED.md", "tier": "C", "parts": "P98", "url": "https://www.workbuddy.cn/space/d/I8nhsQSfISao3jb4SpYqOs"},
+        {"title": "检查选项LOCAL", "file": "13-03_检查选项LOCAL.md", "tier": "C", "parts": "P99", "url": "https://www.workbuddy.cn/space/d/y8DpNEQOeHcTrSDnMKbYPh"},
+        {"title": "视图更新规则与作用", "file": "13-04_视图更新规则与作用.md", "tier": "B", "parts": "P100–P101", "url": "https://www.workbuddy.cn/space/d/7Md7g3Tt3Zg6BiqCDbZUYq"}
+      ]
+    },
+    {
+      "no": "14",
+      "title": "存储过程与存储函数",
+      "parts": "P102–P115",
+      "folder_url": "https://www.workbuddy.cn/space/d/ib1jTCm7Iqhp4ppvyQeaX6",
+      "notes": [
+        {"title": "存储过程介绍与基本语法", "file": "14-01_存储过程介绍与基本语法.md", "tier": "B", "parts": "P102–P103", "url": "https://www.workbuddy.cn/space/d/IMFMvJgUXKFRMI4w8MzuMh"},
+        {"title": "三类变量", "file": "14-02_三类变量.md", "tier": "B", "parts": "P104–P106", "url": "https://www.workbuddy.cn/space/d/cX0fI4Mbwvcc3EEBD7b71b"},
+        {"title": "IF与CASE", "file": "14-03_IF与CASE.md", "tier": "B", "parts": "P107, P109", "url": "https://www.workbuddy.cn/space/d/v7NBRPGJ3f9PFLfK0S1LQT"},
+        {"title": "参数IN_OUT_INOUT", "file": "14-04_参数IN_OUT_INOUT.md", "tier": "B", "parts": "P108", "url": "https://www.workbuddy.cn/space/d/w96f9a6slhIueUapWUkt8Y"},
+        {"title": "三种循环", "file": "14-05_三种循环.md", "tier": "C", "parts": "P110–P112", "url": "https://www.workbuddy.cn/space/d/2t7BwXba78rVqqfzUvCaDK"},
+        {"title": "游标CURSOR", "file": "14-06_游标CURSOR.md", "tier": "C", "parts": "P113", "url": "https://www.workbuddy.cn/space/d/UYJ9SXaKuUIdiki5gHwRNL"},
+        {"title": "HANDLER与存储函数", "file": "14-07_HANDLER与存储函数.md", "tier": "C", "parts": "P114–P115", "url": "https://www.workbuddy.cn/space/d/AGUgqdLhU7cHKXI1t6iZim"}
+      ]
+    },
+    {
+      "no": "15",
+      "title": "触发器",
+      "parts": "P116–P120",
+      "folder_url": "https://www.workbuddy.cn/space/d/lClwuyIHetE9qHnJ3sogk8",
+      "notes": [
+        {"title": "触发器概念与语法", "file": "15-01_触发器概念与语法.md", "tier": "B", "parts": "P116", "url": "https://www.workbuddy.cn/space/d/JDD1dRaPdqpi6vbWQAIX3o"},
+        {"title": "触发器三个案例", "file": "15-02_触发器三个案例.md", "tier": "B", "parts": "P117–P119", "url": "https://www.workbuddy.cn/space/d/4EKaINQJ2YrPnNiEUmZiy6"}
+      ]
+    },
+    {
+      "no": "16",
+      "title": "锁",
+      "parts": "P121–P132",
+      "folder_url": "https://www.workbuddy.cn/space/d/SVjfYeC73nvqRyYxpMeMUj",
+      "notes": [
+        {"title": "锁概述与分类", "file": "16-01_锁概述与分类.md", "tier": "C", "parts": "P121", "url": "https://www.workbuddy.cn/space/d/WHvpvNPreLBOj5TMcZINXK"},
+        {"title": "全局锁与一致性备份", "file": "16-02_全局锁与一致性备份.md", "tier": "C", "parts": "P122–P123", "url": "https://www.workbuddy.cn/space/d/zq6ydAnU4xrCuH2wAzqWsX"},
+        {"title": "表锁与元数据锁", "file": "16-03_表锁与元数据锁.md", "tier": "C", "parts": "P124–P125", "url": "https://www.workbuddy.cn/space/d/DznzrXnbdbw2PsTs8lSKO0"},
+        {"title": "意向锁", "file": "16-04_意向锁.md", "tier": "C", "parts": "P126–P127", "url": "https://www.workbuddy.cn/space/d/ay5lRDDNbYgbxbf4xJu6dC"},
+        {"title": "行级锁与行锁", "file": "16-05_行级锁与行锁.md", "tier": "C", "parts": "P128–P129", "url": "https://www.workbuddy.cn/space/d/cY1fm9Z1zj4T6qtDnTFW37"},
+        {"title": "间隙锁与临键锁", "file": "16-06_间隙锁与临键锁.md", "tier": "C", "parts": "P130–P131", "url": "https://www.workbuddy.cn/space/d/ZwMas9Q5hvaaogb14W56qV"}
+      ]
+    },
+    {
+      "no": "17",
+      "title": "InnoDB引擎原理",
+      "parts": "P133–P147",
+      "folder_url": "https://www.workbuddy.cn/space/d/2Lx3W5oW1StRVZEkCX2ITx",
+      "notes": [
+        {"title": "逻辑存储结构", "file": "17-01_逻辑存储结构.md", "tier": "C", "parts": "P133", "url": "https://www.workbuddy.cn/space/d/dEwLY2Dv1eUthZsnJPXQ6A"},
+        {"title": "内存结构", "file": "17-02_内存结构.md", "tier": "C", "parts": "P134–P135", "url": "https://www.workbuddy.cn/space/d/GVA7G2eKt8QYndR2CSP7wD"},
+        {"title": "磁盘结构与后台线程", "file": "17-03_磁盘结构与后台线程.md", "tier": "C", "parts": "P136–P137", "url": "https://www.workbuddy.cn/space/d/YbKl1NmzyphZ3u2Sz0b0Q3"},
+        {"title": "事务原理redo与undo", "file": "17-04_事务原理redo与undo.md", "tier": "C", "parts": "P138–P140", "url": "https://www.workbuddy.cn/space/d/ovphqC92gU3m4eGkFkIsHf"},
+        {"title": "MVCC隐藏字段与版本链", "file": "17-05_MVCC隐藏字段与版本链.md", "tier": "C", "parts": "P141–P143", "url": "https://www.workbuddy.cn/space/d/vAxPe6Lt1sNR58TsxHBNXq"},
+        {"title": "MVCC的ReadView与隔离级别", "file": "17-06_MVCC的ReadView与隔离级别.md", "tier": "C", "parts": "P144–P146", "url": "https://www.workbuddy.cn/space/d/EnEAYgVvr8a2v12bQA4eJ1"}
+      ]
+    },
+    {
+      "no": "18",
+      "title": "MySQL管理",
+      "parts": "P148–P152",
+      "folder_url": "https://www.workbuddy.cn/space/d/eKFVRVvTMbCviHIQz3vcJN",
+      "notes": [
+        {"title": "系统数据库", "file": "18-01_系统数据库.md", "tier": "B", "parts": "P148", "url": "https://www.workbuddy.cn/space/d/I6Srpk5G1w7hOaTV6jQFjZ"},
+        {"title": "常用工具", "file": "18-02_常用工具.md", "tier": "B", "parts": "P149–P150", "url": "https://www.workbuddy.cn/space/d/xph273DglSctr44UQdQnhp"}
+      ]
+    },
     {"no": "19", "title": "日志", "parts": "P153–P157", "folder_url": "", "notes": []},
     {"no": "20", "title": "主从复制", "parts": "P158–P162", "folder_url": "", "notes": []},
     {"no": "21", "title": "分库分表与MyCat", "parts": "P163–P187", "folder_url": "", "notes": []},
